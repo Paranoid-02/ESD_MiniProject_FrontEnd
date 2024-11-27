@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navigation from './components/Navigation';
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import OrganizationPage from './pages/OrganizationPage';
+import { AuthProvider } from './hooks/useAuth';
+import PrivateRoute from './utils/PrivateRoute';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <AuthProvider>
+      <Router>
+        <div>
+          <Navigation />
+          <Routes> {/* Ensure that you use <Routes> around all <Route> components */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route 
+              path="/" 
+              element={
+                <PrivateRoute>
+                  <HomePage />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/organizations" 
+              element={
+                <PrivateRoute>
+                  <OrganizationPage />
+                </PrivateRoute>
+              } 
+            />
+            {/* You can add more routes here */}
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
+  );
+};
 
-export default App
+export default App;
