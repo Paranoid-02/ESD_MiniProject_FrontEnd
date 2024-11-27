@@ -4,6 +4,7 @@ import Navigation from './components/Navigation';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import OrganizationPage from './pages/OrganizationPage';
+import OrganizationsHRPage from './pages/OrganizationsHRPage';
 import { AuthProvider } from './hooks/useAuth';
 import PrivateRoute from './utils/PrivateRoute';
 
@@ -13,7 +14,7 @@ const App = () => {
       <Router>
         <div>
           <Navigation />
-          <Routes> {/* Ensure that you use <Routes> around all <Route> components */}
+          <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route 
               path="/" 
@@ -31,7 +32,14 @@ const App = () => {
                 </PrivateRoute>
               } 
             />
-            {/* You can add more routes here */}
+            <Route 
+              path="/organizations/:organizationId/hrs" 
+              element={
+                <PrivateRoute>
+                  <OrganizationsHRPage />
+                </PrivateRoute>
+              } 
+            />
           </Routes>
         </div>
       </Router>

@@ -1,10 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // using react-router-dom for navigation
 import organizationService from '../services/organizationService';
 
-const OrganizationList = ({ organizations, setOrganizations, setEditId }) => {
+const OrganizationList = ({ organizations, setOrganizations }) => {
+  const navigate = useNavigate();
+
   const handleDelete = async (id) => {
     await organizationService.deleteOrganization(id);
     setOrganizations(organizations.filter((org) => org.id !== id));
+  };
+
+  const handleShowHRs = (id) => {
+    navigate(`/organizations/${id}/hrs`);
   };
 
   return (
@@ -27,9 +34,9 @@ const OrganizationList = ({ organizations, setOrganizations, setEditId }) => {
               <td>
                 <button
                   className="btn btn-primary me-2"
-                  onClick={() => setEditId(org.id)}
+                  onClick={() => handleShowHRs(org.id)}
                 >
-                  Edit
+                  Show HRs
                 </button>
                 <button
                   className="btn btn-danger"
