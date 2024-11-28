@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import hrService from '../services/hrService';
+import React, { useState, useEffect } from "react";
+import hrService from "../services/hrService";
 
 const HRForm = ({ organizationId, editHRId, setHRs, setEditHRId }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
   useEffect(() => {
     const fetchHR = async () => {
       if (editHRId) {
         const hr = await hrService.getHRById(organizationId, editHRId);
-        setName(hr.name);
-        setEmail(hr.email);
-        setPhone(hr.phone);
+        setName(hr.hrName);
+        setEmail(hr.hrEmail);
+        setPhone(hr.hrPhone);
       }
     };
     fetchHR();
@@ -20,7 +20,7 @@ const HRForm = ({ organizationId, editHRId, setHRs, setEditHRId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const hrData = { name, email, phone };
+    const hrData = { hrName: name, hrEmail: email, hrPhone: phone };
 
     if (editHRId) {
       await hrService.updateHR(organizationId, editHRId, hrData);
@@ -31,16 +31,18 @@ const HRForm = ({ organizationId, editHRId, setHRs, setEditHRId }) => {
     const updatedHRs = await hrService.getHRsByOrganization(organizationId);
     setHRs(updatedHRs);
     setEditHRId(null);
-    setName('');
-    setEmail('');
-    setPhone('');
+    setName("");
+    setEmail("");
+    setPhone("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3>{editHRId ? 'Edit HR' : 'Add HR'}</h3>
+      <h3>{editHRId ? "Edit HR" : "Add HR"}</h3>
       <div className="mb-3">
-        <label htmlFor="name" className="form-label">Name</label>
+        <label htmlFor="name" className="form-label">
+          Name
+        </label>
         <input
           type="text"
           className="form-control"
@@ -51,7 +53,9 @@ const HRForm = ({ organizationId, editHRId, setHRs, setEditHRId }) => {
         />
       </div>
       <div className="mb-3">
-        <label htmlFor="email" className="form-label">Email</label>
+        <label htmlFor="email" className="form-label">
+          Email
+        </label>
         <input
           type="email"
           className="form-control"
@@ -62,7 +66,9 @@ const HRForm = ({ organizationId, editHRId, setHRs, setEditHRId }) => {
         />
       </div>
       <div className="mb-3">
-        <label htmlFor="phone" className="form-label">Phone</label>
+        <label htmlFor="phone" className="form-label">
+          Phone
+        </label>
         <input
           type="text"
           className="form-control"
@@ -72,7 +78,9 @@ const HRForm = ({ organizationId, editHRId, setHRs, setEditHRId }) => {
           required
         />
       </div>
-      <button type="submit" className="btn btn-success">{editHRId ? 'Update' : 'Add'}</button>
+      <button type="submit" className="btn btn-success">
+        {editHRId ? "Update" : "Add"}
+      </button>
       {editHRId && (
         <button
           type="button"

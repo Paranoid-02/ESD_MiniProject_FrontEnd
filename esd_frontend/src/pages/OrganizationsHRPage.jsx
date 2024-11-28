@@ -9,16 +9,32 @@ const OrganizationsHRPage = () => {
   const [hrs, setHRs] = useState([]);
   const [editHRId, setEditHRId] = useState(null);
 
+  // useEffect(() => {
+  //   const fetchHRs = async () => {
+  //     if (organizationId) {
+  //       const hrData = await hrService.getHRsByOrganization(organizationId);
+  //       setHRs(hrData);
+  //     }
+  //   };
+  //   fetchHRs();
+  // }, [organizationId]);
+
   useEffect(() => {
     const fetchHRs = async () => {
       if (organizationId) {
         const hrData = await hrService.getHRsByOrganization(organizationId);
-        setHRs(hrData);
+  
+        // Fix any issues in IDs temporarily
+        const normalizedHRs = hrData.map((hr) => ({
+          ...hr,
+          id: hr.id % organizationId === 0 ? hr.id : hr.id - organizationId + 1,
+        }));
+        setHRs(normalizedHRs);
       }
     };
     fetchHRs();
   }, [organizationId]);
-
+  
   return (
     <div className="container mt-4">
       <div className="row">
