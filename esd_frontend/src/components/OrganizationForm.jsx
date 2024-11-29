@@ -31,6 +31,7 @@ const OrganizationForm = ({ organizationId, setOrganizations }) => {
             className="form-control"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
@@ -40,6 +41,7 @@ const OrganizationForm = ({ organizationId, setOrganizations }) => {
             className="form-control"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            required
           />
         </div>
         <button type="submit" className="btn btn-success mt-3">Submit</button>

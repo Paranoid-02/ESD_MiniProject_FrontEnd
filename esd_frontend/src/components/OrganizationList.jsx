@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // using react-router-dom for navigation
+import { useNavigate } from 'react-router-dom';
 import organizationService from '../services/organizationService';
 
 const OrganizationList = ({ organizations, setOrganizations }) => {
@@ -19,7 +19,7 @@ const OrganizationList = ({ organizations, setOrganizations }) => {
       <table className="table">
         <thead>
           <tr>
-            <th>ID</th>
+            {/* <th>ID</th> */}
             <th>Name</th>
             <th>Address</th>
             <th>Actions</th>
@@ -28,7 +28,7 @@ const OrganizationList = ({ organizations, setOrganizations }) => {
         <tbody>
           {organizations.map((org) => (
             <tr key={org.id}>
-              <td>{org.id}</td>
+              {/* <td>{org.id}</td> */}
               <td>{org.name}</td>
               <td>{org.address}</td>
               <td>
