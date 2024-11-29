@@ -21,6 +21,7 @@ const LoginForm = () => {
             className="form-control"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
@@ -30,6 +31,7 @@ const LoginForm = () => {
             className="form-control"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <button type="submit" className="btn btn-primary mt-3">Login</button>
